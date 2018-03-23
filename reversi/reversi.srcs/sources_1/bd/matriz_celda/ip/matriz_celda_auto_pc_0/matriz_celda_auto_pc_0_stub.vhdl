@@ -1,10 +1,10 @@
 -- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
--- Date        : Thu Mar 22 20:57:25 2018
+-- Date        : Thu Mar 22 20:57:24 2018
 -- Host        : Dailers-00 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               e:/Dariel/Otros/Programacion/Xilinx/Vivado/reversi/reversi.srcs/sources_1/bd/matriz_celda/ip/matriz_celda_auto_pc_0/matriz_celda_auto_pc_0_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top matriz_celda_auto_pc_0 -prefix
+--               matriz_celda_auto_pc_0_ matriz_celda_auto_pc_0_stub.vhdl
 -- Design      : matriz_celda_auto_pc_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z020clg484-1

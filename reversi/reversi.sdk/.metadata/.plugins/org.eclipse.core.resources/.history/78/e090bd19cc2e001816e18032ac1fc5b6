@@ -1,0 +1,41 @@
+
+/*
+ * main.c
+ *
+ *  Created on: 22 mar. 2018
+ *      Author: Dariel
+ */
+
+#include "matriz_celda.h"
+#include "xil_types.h"
+#include <stdio.h>
+#include "xparameters.h"
+
+
+void pintarTablero(u32 *tablero){
+	int i = 0;
+	for(i = 0; i < 4; i++){
+
+	}
+}
+
+int main(){
+
+	printk("Hola\n");
+   // tablero
+   // 0 - nada
+   // 1 - blanco
+   // 2 - negro
+   // movimientos
+   // 0 - 2 idem
+   // 3 posible movimiento
+
+	u32 tablero[4] = {0x00000000,
+					  0x01800000,
+					  0x06000000,
+					  0x00000000};
+	pintarTablero(tablero);
+
+
+	return 0;
+}

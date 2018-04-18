@@ -41,39 +41,47 @@ end acumulador;
 architecture Behavioral of acumulador is
 signal temporal : std_logic_vector(31 downto 0);
 begin
-    if(entrada(0 downto 0)= '1') then
-        temporal <= temporal + 1;
+process (entrada, temporal)
+begin
+    if (entrada(0) = '1') then
+        temporal <= temporal + x"00000001";
     else
-        temporal <= temporal - 1;
+        temporal <= temporal - x"00000001";
     end if; 
-    if(entrada(1 downto 1)= '1') then
-        temporal <= temporal + 1;
+    if (entrada(1) = '1') then
+        temporal <= temporal + x"00000001";
     else
-        temporal <= temporal - 1;
+        temporal <= temporal - x"00000001";
     end if; 
-    if(entrada(2 downto 2)= '1') then
-        temporal <= temporal + 1;
+    if (entrada(2) = '1') then
+        temporal <= temporal + x"00000001";
     else
-        temporal <= temporal - 1;
+        temporal <= temporal - x"00000001";
     end if; 
-    if(entrada(3 downto 3)= '1') then
-        temporal <= temporal + 1;
+    if (entrada(3) = '1') then
+        temporal <= temporal + x"00000001";
     else
-        temporal <= temporal - 1;
+        temporal <= temporal - x"00000001";
     end if; 
-    if(entrada(4 downto 4)= '1') then
-        temporal <= temporal + 1;
+    if (entrada(4) = '1') then
+        temporal <= temporal + x"00000001";
     else
-        temporal <= temporal - 1;
+        temporal <= temporal - x"00000001";
     end if; 
-    if(entrada(5 downto 5)= '1') then
-        temporal <= temporal + 1;
+    if (entrada(5) = '1') then
+        temporal <= temporal + x"00000001";
     else
-        temporal <= temporal - 1;           
+        temporal <= temporal - x"00000001";           
     end if; 
-    if(temporal >= 0) then
+    if (entrada(6) = '1') then
+        temporal <= temporal + x"00000001";
+    else
+        temporal <= temporal - x"00000001";           
+    end if;
+    if (temporal >= x"00000000") then
         salida <= '1';
     else
         salida <= '0';
-    end if;  
+    end if;
+end process;
 end Behavioral;

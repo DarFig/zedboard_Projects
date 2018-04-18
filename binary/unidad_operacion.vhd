@@ -52,7 +52,7 @@ begin
     temporal <= in_unidad xnor vector;
     bitcount: acumulador port map (
         entrada => in_unidad,
-        salida => out_unidad,
+        salida => out_unidad
     );
 
 end Behavioral;

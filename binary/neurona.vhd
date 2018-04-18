@@ -35,10 +35,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 -- reg2 vector n dimensinal
 -- reg3 resultado m dimensional
 entity neurona is
-    Port ( reg0 : in STD_LOGIC_vector(32 downto 0);
-           reg1 : in STD_LOGIC_vector(32 downto 0);
-           reg2 : in STD_LOGIC_vector(32 downto 0);
-           reg3 : out STD_LOGIC_vector(32 downto 0));
+    Port ( reg0 : in STD_LOGIC_vector(31 downto 0);
+           reg1 : in STD_LOGIC_vector(31 downto 0);
+           reg2 : in STD_LOGIC_vector(31 downto 0);
+           reg3 : out STD_LOGIC_vector(31 downto 0));
 end neurona;
 
 architecture Behavioral of neurona is
@@ -53,14 +53,14 @@ end component;
 signal salida : std_logic_vector(8 downto 0);
 signal vector_op : std_logic_vector(6 downto 0);
 signal in0, in1, in2, in3, in4, in5, in6, in7, in8 : std_logic_vector(6 downto 0);
-signal s0, s1, s2, s3, s4, s5, s6, s7, s8; 
+signal s0, s1, s2, s3, s4, s5, s6, s7, s8: std_logic; 
 begin
     vector_op <= reg2(6 downto 0);
     in0 <= reg1(31 downto 25);
     in1 <= reg1(24 downto 18);
     in2 <= reg1(17 downto 11);
-    in3 <= reg1(10 downto 2);
-    in4 <= reg1(3 downto 0) &  reg0(31 downto 29);;
+    in3 <= reg1(10 downto 4);
+    in4 <= reg1(3 downto 0) &  reg0(31 downto 29);
     in5 <= reg0(28 downto 22);
     in6 <= reg0(21 downto 15);
     in7 <= reg0(14 downto 8);
@@ -76,7 +76,7 @@ begin
     unidad7: unidad_operacion port map(in_unidad => in7, vector => vector_op, out_unidad => s7);
     unidad8: unidad_operacion port map(in_unidad => in8, vector => vector_op, out_unidad => s8);
     
-    salida <= s8 & s7 & s6 & s5 & s4 & s3 & s2 & s1 & s0;
+    salida <= s0 & s1 & s2 & s3 & s4 & s5 & s6 & s7 & s8;
     reg3 <= "00000000000000000000000" & salida; 
 
 end Behavioral;

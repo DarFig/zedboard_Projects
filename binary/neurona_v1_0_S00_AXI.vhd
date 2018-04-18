@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity binarized_v1_0_S00_AXI is
+entity neurona_v1_0_S00_AXI is
 	generic (
 		-- Users to add parameters here
 
@@ -81,9 +81,9 @@ entity binarized_v1_0_S00_AXI is
     		-- accept the read data and response information.
 		S_AXI_RREADY	: in std_logic
 	);
-end binarized_v1_0_S00_AXI;
+end neurona_v1_0_S00_AXI;
 
-architecture arch_imp of binarized_v1_0_S00_AXI is
+architecture arch_imp of neurona_v1_0_S00_AXI is
 
 	-- AXI4LITE signals
 	signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -117,21 +117,22 @@ architecture arch_imp of binarized_v1_0_S00_AXI is
 	signal reg_data_out	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	signal byte_index	: integer;
 	signal aw_en	: std_logic;
-
-    -----------------------------------
+	
+	-----------------------------------
     ---//////
     -----------------------------------
     component neurona
-        Port ( reg0 : in STD_LOGIC_vector(32 downto 0);
-               reg1 : in STD_LOGIC_vector(32 downto 0);
-               reg2 : in STD_LOGIC_vector(32 downto 0);
-               reg3 : out STD_LOGIC_vector(32 downto 0)); 
+        Port ( reg0 : in STD_LOGIC_vector(31 downto 0);
+               reg1 : in STD_LOGIC_vector(31 downto 0);
+               reg2 : in STD_LOGIC_vector(31 downto 0);
+               reg3 : out STD_LOGIC_vector(31 downto 0)); 
     end component;
-    signal reg0, reg1, reg2, reg3: STD_LOGIC_vector(32 downto 0);
+    signal reg0, reg1, reg2, reg3: STD_LOGIC_vector(31 downto 0);
     
     -----------------------------------
     ---//////
     -----------------------------------
+
 begin
 	-- I/O Connections assignments
 
@@ -274,7 +275,7 @@ begin
 	            slv_reg3 <= slv_reg3;
 	        end case;
 	      else
-	           slv_reg3 <= reg3;
+             slv_reg3 <= reg3;
 	      end if;
 	    end if;
 	  end if;                   
@@ -400,10 +401,10 @@ begin
 
 
 	-- Add user logic here
-    reg0 <= slv_reg0;
-    reg1 <= slv_reg1;
-    reg2 <= slv_reg2;
-
+       reg0 <= slv_reg0;
+       reg1 <= slv_reg1;
+       reg2 <= slv_reg2;
+       neuron: neurona port map(reg0=>reg0, reg1=>reg1,reg2=>reg2,reg3=>reg3);
 	-- User logic ends
-    neuron: neurona port map(reg0=>reg0, reg1=>reg1,reg2=>reg2,reg3=>reg3);
+
 end arch_imp;

@@ -51,7 +51,7 @@ signal temporal : std_logic_vector(6 downto 0);
 begin
     temporal <= in_unidad xnor vector;
     bitcount: acumulador port map (
-        entrada => in_unidad,
+        entrada => temporal,
         salida => out_unidad
     );
 

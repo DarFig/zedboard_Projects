@@ -41,47 +41,5 @@ end acumulador;
 architecture Behavioral of acumulador is
 signal temporal : std_logic_vector(31 downto 0);
 begin
-process (entrada, temporal)
-begin
-    if (entrada(0) = '1') then
-        temporal <= temporal + x"00000001";
-    else
-        temporal <= temporal - x"00000001";
-    end if; 
-    if (entrada(1) = '1') then
-        temporal <= temporal + x"00000001";
-    else
-        temporal <= temporal - x"00000001";
-    end if; 
-    if (entrada(2) = '1') then
-        temporal <= temporal + x"00000001";
-    else
-        temporal <= temporal - x"00000001";
-    end if; 
-    if (entrada(3) = '1') then
-        temporal <= temporal + x"00000001";
-    else
-        temporal <= temporal - x"00000001";
-    end if; 
-    if (entrada(4) = '1') then
-        temporal <= temporal + x"00000001";
-    else
-        temporal <= temporal - x"00000001";
-    end if; 
-    if (entrada(5) = '1') then
-        temporal <= temporal + x"00000001";
-    else
-        temporal <= temporal - x"00000001";           
-    end if; 
-    if (entrada(6) = '1') then
-        temporal <= temporal + x"00000001";
-    else
-        temporal <= temporal - x"00000001";           
-    end if;
-    if (temporal >= x"00000000") then
-        salida <= '1';
-    else
-        salida <= '0';
-    end if;
-end process;
+    salida <= entrada(0) xnor entrada(1) xnor entrada(2) xnor entrada(3) xnor entrada(4) xnor entrada(5) xnor entrada(6);
 end Behavioral;

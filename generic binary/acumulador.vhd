@@ -23,6 +23,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.std_logic_arith.all;
 use IEEE.std_logic_unsigned.all;
+use IEEE.numeric_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -34,15 +35,30 @@ use IEEE.std_logic_unsigned.all;
 --use UNISIM.VComponents.all;
 
 entity acumulador is
-    Port ( entrada : in STD_LOGIC_vector(6 downto 0);
+    Port ( entrada : in STD_LOGIC_vector(N downto 0);
            salida : out STD_LOGIC);
 end acumulador;
 
 architecture Behavioral of acumulador is
 
+signal temporal : std_logic_vector(31 downto 0);
 
 begin
-   
-   
-   
+temporal <= x"00000000";
+process (entrada)
+    variable j : integer := 0;
+begin
+  while(j < N) loop
+  if (entrada(j) = '1') then
+    temporal <= temporal + x"00000001";
+  end if;
+    j := j + 1;
+  end loop;
+  if temporal >= (N/2) then
+      salida <= '1';
+  else
+      salida <= '0';
+  end if;
+end process;
+
 end Behavioral;

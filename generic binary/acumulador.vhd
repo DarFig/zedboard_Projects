@@ -35,6 +35,7 @@ use IEEE.numeric_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity acumulador is
+    generic (N : natural := 63);
     Port ( entrada : in STD_LOGIC_vector(N downto 0);
            salida : out STD_LOGIC);
 end acumulador;

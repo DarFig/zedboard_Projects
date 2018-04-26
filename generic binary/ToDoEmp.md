@@ -19,3 +19,16 @@
 - [ ] Esquema global
 - [ ] Sistema de registros/memoria de entradas y salidas
 - [ ] pasar a modelo genérico
+
+### Transferencia
+
+- [ ] Transferencia por registros
+- [ ] Transferencia por DMA(ráfaga)
+
+### Pruebas
+
+- [ ] Para 8x8
+- [ ] Para 16x16
+- [ ] Para 32x32
+- [ ] Para 64x64
+

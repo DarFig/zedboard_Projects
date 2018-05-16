@@ -1,7 +1,7 @@
 ## ToDo List
 
 
-- [ ] Plantear el diseño del sistema
+- [x] Plantear el diseño del sistema
 
 ### Acumulador
 
@@ -11,14 +11,16 @@
 
 ### Unidad Básica
 
-- [ ] esquema genérico
+- [x] esquema genérico 1h
 - [ ] control según tamaños
+- [ ] depurar
 
 ### Unidad General
 
-- [ ] Esquema global
+- [x] Esquema global 45min
 - [ ] Sistema de registros/memoria de entradas y salidas
-- [ ] pasar a modelo genérico
+- [x] pasar a modelo genérico 1h, 15min
+- [ ] depurar
 
 ### Transferencia
 

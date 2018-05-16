@@ -46,7 +46,7 @@ component acumulador
            salida : out STD_LOGIC);
 end component;
 
-signal temporal : std_logic_vector(63 downto 0);
+signal temporal : std_logic_vector(N downto 0);
 begin
     temporal <= in_unidad xnor vector; 
     bitcount: acumulador port map (

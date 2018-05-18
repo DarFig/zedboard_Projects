@@ -24,11 +24,13 @@
 
 ### Transferencia
 
+- [x] estructurar el c
 - [ ] Transferencia por registros
 - [ ] Transferencia por DMA(ráfaga)
 
 ### Pruebas
 
+- [ ] Montar todo junto
 - [ ] Para 8x8
 - [ ] Para 16x16
 - [ ] Para 32x32

@@ -32,13 +32,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 -- reg0 vector n dimensinal
--- reg1 resultado m dimensional
--- reg2 nxM bits de entrada de la matriz n x m
+-- reg1 resultado m+1 dimensional
+-- reg2 nxM bits de entrada de la matriz (n+1 x m+1)-1
 
 entity unidad_general is
     generic (N : natural := 63;
-             M : natural := 10;
-             NM : natural := 630); --// n x m bits
+             M : natural := 9;
+             NM : natural := 639); --// (n+1 x m+1)-1 bits
     Port ( reg2 : in STD_LOGIC_vector(NM downto 0);           
            reg0 : in STD_LOGIC_vector(N downto 0);
            reg1 : out STD_LOGIC_vector(M downto 0));

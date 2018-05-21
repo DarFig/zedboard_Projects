@@ -37,7 +37,8 @@ int main()
 
     u32 vector1 = 0x00;
 	u32 vector0 = 0x69;
-    u32 salida = 0x0;
+    u32 salida1 = 0x0;
+	u32 salida0 = 0x0;
 	
 	print("....\n\r");
     NEURONA_mWriteReg(baseaddr, , matriz[0]);

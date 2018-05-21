@@ -31,7 +31,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
--- reg0 vector n dimensinal
+-- reg0 vector n+1 dimensinal
 -- reg1 resultado m+1 dimensional
 -- reg2 nxM bits de entrada de la matriz (n+1 x m+1)-1
 

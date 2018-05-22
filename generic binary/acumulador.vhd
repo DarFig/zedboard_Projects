@@ -50,19 +50,23 @@ begin
         variable c : integer := 0;
         variable j : integer := 0;
     begin
-      while(j < N) loop
-      if (entrada(j) = '1') then
-        c := c + 1;
-        --temporal <= temporal + x"00000001";
-      end if;
-        j := j + 1;
-      end loop;
-      --if temporal >= ((N+1)/2) then
-      if c >= ((N+1)/2) then
+    --https://www.xilinx.com/support/answers/60073.html
+    --Vivado Synthesis is not able to calculate the loop limit value from 
+    --the dynamic variable.
+        L1: for j in 0 to 64 loop
+            exit L1 when j > N;
+            if (entrada(j) = '1') then
+                c := c + 1;
+              --temporal <= temporal + x"00000001";
+            end if;
+            --j := j + 1;
+        end loop;
+        --if temporal >= ((N+1)/2) then
+        if c >= ((N+1)/2) then
           salida <= '1';
-      else
+        else
           salida <= '0';
-      end if;
-end process;
+        end if;
+    end process;
 
 end Behavioral;

@@ -5,26 +5,34 @@
 
 ### Acumulador
 
-- [x] Sumadores Básicos 1h
+- [x] Sumadores Básicos 
 - [ ] Lógica para implementar el sign(2*P - N)
 - [ ] Árbol de Sumas
 
 ### Unidad Básica
 
-- [x] esquema genérico 1h
+- [x] esquema genérico 
 - [ ] control según tamaños
-- [ ] depurar
 
 ### Unidad General
 
-- [x] Esquema global 45min
-- [ ] Sistema de registros/memoria de entradas y salidas
-- [x] pasar a modelo genérico 1h, 15min
-- [ ] depurar
+- [x] Esquema global 
+- [x] Sistema de registros/memoria de entradas y salidas
+- [x] pasar a modelo genérico 
+- [x] depurar (señales)
+
+
+### Sistema
+
+- [x] Block Design
+- [x] new ip package
+- [x] estructurar el c
+- [ ] primera prueba
+- [ ] banco de pruebas
 
 ### Transferencia
 
-- [x] estructurar el c
+
 - [ ] Transferencia por registros
 - [ ] Transferencia por DMA(ráfaga)
 

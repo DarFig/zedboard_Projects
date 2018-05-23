@@ -6,13 +6,12 @@
 ### Acumulador
 
 - [x] Sumadores Básicos 
-- [ ] Lógica para implementar el sign(2*P - N)
 - [ ] Árbol de Sumas
 
 ### Unidad Básica
 
 - [x] esquema genérico 
-- [ ] control según tamaños
+- [x] control según tamaños
 
 ### Unidad General
 
@@ -21,26 +20,32 @@
 - [x] pasar a modelo genérico 
 - [x] depurar (señales)
 
-
 ### Sistema
 
 - [x] Block Design
 - [x] new ip package
 - [x] estructurar el c
-- [ ] primera prueba
-- [ ] banco de pruebas
+- [x] primera prueba
+
+****
+
+## Fase2
+
+- [ ] reducir espacio reservado actual a 64x10(espacio util de la primera prueba)
+- [ ] replantear partiendo de diseño bottom-up
+
+## General
 
 ### Transferencia
 
-
-- [ ] Transferencia por registros
+- [x] Transferencia por registros
 - [ ] Transferencia por DMA(ráfaga)
 
 ### Pruebas
 
-- [ ] Montar todo junto
+- [x] Montar todo junto
+- [ ] banco de pruebas
 - [ ] Para 8x8
 - [ ] Para 16x16
 - [ ] Para 32x32
 - [ ] Para 64x64
-

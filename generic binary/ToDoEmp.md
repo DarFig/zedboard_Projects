@@ -31,7 +31,8 @@
 
 ## Fase2
 
-- [ ] reducir espacio reservado actual a 64x10(espacio util de la primera prueba)
+- [x] reducir espacio reservado actual a 64x10(espacio util de la primera prueba)
+- [ ] primera prueba del espacio reducido
 - [ ] replantear partiendo de diseño bottom-up
 
 ## General

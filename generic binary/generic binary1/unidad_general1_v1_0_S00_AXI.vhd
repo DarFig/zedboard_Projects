@@ -1,6 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity unidad_general1_v1_0_S00_AXI is
 	generic (
@@ -156,6 +158,7 @@ architecture arch_imp of unidad_general1_v1_0_S00_AXI is
     signal matriz : STD_LOGIC_vector(639 downto 0);--tamaño total 64x64            
     signal vector : STD_LOGIC_vector(63 downto 0);--vector
     signal salida : STD_LOGIC_vector(63 downto 0);--salida
+    signal salidatemp : STD_LOGIC_vector(9 downto 0);--salida
     signal cuenta : STD_LOGIC_VECTOR (31 downto 0);--cuenta ciclos
     
     ------------------------
@@ -513,7 +516,7 @@ begin
 	            slv_reg23 <= slv_reg23;
 	            slv_reg24 <= slv_reg24;
 	        end case;
-	      else
+	      else	           
 	           slv_reg24 <= cuenta;
 	           slv_reg23 <= salida(63 downto 32);
 	           slv_reg22 <= salida(31 downto 0);
@@ -689,6 +692,7 @@ begin
 	
 	vector(63 downto 32) <= slv_reg21;
     vector(31 downto 0) <= slv_reg20;
+    
     matriz(639 downto 608) <= slv_reg19;
     matriz(607 downto 576) <= slv_reg18;
     matriz(575 downto 544) <= slv_reg17;
@@ -709,10 +713,11 @@ begin
     matriz(95 downto 64) <= slv_reg2;
     matriz(63 downto 32) <= slv_reg1;
     matriz(31 downto 0) <= slv_reg0;
-    salida <= x"0000000000000000";
     
-    unidad_g: unidad_general port map (reg2 => matriz, reg0 => vector, reg1 => salida(9 downto 0));
-
+    cuenta <= slv_reg24 + x"00000001";
+    unidad_g: unidad_general port map (reg2 => matriz, reg0 => vector, reg1 => salidatemp);
+    salida <= x"0000000000000000" + salidatemp;
+    
 	-- User logic ends
 
 end arch_imp;

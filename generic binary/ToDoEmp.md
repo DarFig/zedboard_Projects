@@ -32,8 +32,19 @@
 ## Fase2
 
 - [x] reducir espacio reservado actual a 64x10(espacio util de la primera prueba)
-- [ ] primera prueba del espacio reducido
-- [ ] replantear partiendo de diseño bottom-up
+- [x] primera prueba del espacio reducido
+- [x] replantear partiendo de diseño bottom-up
+- [ ] simplificar diseño antiguo, reprobar
+
+### Diseño bottom-up
+
+- [x] counter 8
+- [x] u_basica 8, 16
+- [x] u_general 8x8, 16x16
+- [ ] u_externa 8x8, 16x16
+- [ ] axi 8x8
+- [ ] prueba externa 8x8
+
 
 ## General
 

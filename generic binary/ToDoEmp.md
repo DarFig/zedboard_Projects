@@ -41,7 +41,7 @@
 - [x] counter 8
 - [x] u_basica 8, 16
 - [x] u_general 8x8, 16x16
-- [ ] u_externa 8x8, 16x16
+- [x] u_externa 8x8, 16x16
 - [ ] axi 8x8
 - [ ] prueba externa 8x8
 

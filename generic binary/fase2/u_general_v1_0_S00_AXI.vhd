@@ -1,11 +1,10 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use IEEE.std_logic_unsigned.all;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-
-
-entity unidad_externa_v1_0_S00_AXI is
+entity u_general_v1_0_S00_AXI is
 	generic (
 		-- Users to add parameters here
 
@@ -84,9 +83,9 @@ entity unidad_externa_v1_0_S00_AXI is
     		-- accept the read data and response information.
 		S_AXI_RREADY	: in std_logic
 	);
-end unidad_externa_v1_0_S00_AXI;
+end u_general_v1_0_S00_AXI;
 
-architecture arch_imp of unidad_externa_v1_0_S00_AXI is
+architecture arch_imp of u_general_v1_0_S00_AXI is
 
 	-- AXI4LITE signals
 	signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -122,20 +121,21 @@ architecture arch_imp of unidad_externa_v1_0_S00_AXI is
 	signal byte_index	: integer;
 	signal aw_en	: std_logic;
 	
-    -----------------------------------
+	
+	-----------------------------------
     ---//////
     -----------------------------------
     component u_externa
-        Port ( reg0 : in STD_LOGIC_vector(31 downto 0);
-               reg1 : in STD_LOGIC_vector(31 downto 0);
-               reg2 : in STD_LOGIC_vector(31 downto 0);
-               reg3 : out STD_LOGIC_vector(31 downto 0)); 
-    end component;
+        Port ( reg0 : in STD_LOGIC_vector(31 downto 0); --// entrada1
+               reg1 : in STD_LOGIC_vector(31 downto 0); --// entrada2
+               reg2 : in STD_LOGIC_vector(31 downto 0); --// vector
+               reg3 : out STD_LOGIC_vector(31 downto 0)); --// salida
+    end component;  
     signal reg0, reg1, reg2, reg3, contador: STD_LOGIC_vector(31 downto 0);
     
     -----------------------------------
     ---//////
-    -----------------------------------
+    ----------------------------------- 
 
 begin
 	-- I/O Connections assignments
@@ -288,7 +288,7 @@ begin
 	            slv_reg3 <= slv_reg3;
 	            slv_reg4 <= slv_reg4;
 	        end case;
-	      else
+	        else
 	           slv_reg3 <= reg3;
 	           slv_reg4 <= contador;
 	      end if;
@@ -418,14 +418,12 @@ begin
 
 
 	-- Add user logic here
-	reg0 <= slv_reg0;
-	reg1 <= slv_reg1;
-	reg2 <= slv_reg2;
-	
-	contador <= slv_reg4 + x"00000001";
-	u_e : u_externa port map(reg0 => reg0, reg1 => reg1, reg2 => reg2, reg3 => reg3);
-	
-
+    reg0 <= slv_reg0;
+    reg1 <= slv_reg1;
+    reg2 <= slv_reg2;
+        
+    contador <= slv_reg4 + x"00000001";
+    u_e : u_externa port map(reg0 => reg0, reg1 => reg1, reg2 => reg2, reg3 => reg3);
 	-- User logic ends
 
 end arch_imp;

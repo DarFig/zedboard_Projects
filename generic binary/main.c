@@ -14,7 +14,6 @@
 
  #include <stdio.h>
 #include "xil_types.h"
-#include <stdio.h>
 #include "xparameters.h"
 #include "xil_io.h"
 #include "platform.h"

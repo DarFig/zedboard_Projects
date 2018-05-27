@@ -51,14 +51,14 @@ int main()
 	u32 salida = 0x0;
 	u32 c2, c1 = 0x0;
 
-	c2  = U_GENERAL_mReadReg(baseaddr, U_GENERAL_S00_AXI_SLV_REG4_OFFSET);
+	c1  = U_GENERAL_mReadReg(baseaddr, U_GENERAL_S00_AXI_SLV_REG4_OFFSET);
 	U_GENERAL_mWriteReg(baseaddr,U_GENERAL_S00_AXI_SLV_REG0_OFFSET, matriz[0]);
 	U_GENERAL_mWriteReg(baseaddr,U_GENERAL_S00_AXI_SLV_REG1_OFFSET,matriz[1]);
 	U_GENERAL_mWriteReg(baseaddr,U_GENERAL_S00_AXI_SLV_REG2_OFFSET,vector);
 
 	salida = U_GENERAL_mReadReg(baseaddr,U_GENERAL_S00_AXI_SLV_REG3_OFFSET);
 
-	c1  = U_GENERAL_mReadReg(baseaddr,U_GENERAL_S00_AXI_SLV_REG4_OFFSET);
+	c2  = U_GENERAL_mReadReg(baseaddr,U_GENERAL_S00_AXI_SLV_REG4_OFFSET);
 
 	printf("resultado: %08x\n\r", salida);
 	printf("tiempo : %d - %d = %d ciclos a 100MHz\n\r", c2, c1, c2-c1);

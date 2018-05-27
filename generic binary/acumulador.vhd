@@ -21,7 +21,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.std_logic_arith.all;
+--use IEEE.std_logic_arith.all;
 use IEEE.std_logic_unsigned.all;
 use IEEE.numeric_STD.ALL;
 
@@ -42,12 +42,10 @@ end acumulador;
 
 architecture Behavioral of acumulador is
 
---signal temporal : std_logic_vector(31 downto 0);
+signal temporal : std_logic_vector(31 downto 0);
 
 begin
-    --temporal <= x"00000000";
     process (entrada)
-        variable c : integer := 0;
         variable j : integer := 0;
     begin
     --https://www.xilinx.com/support/answers/60073.html
@@ -55,18 +53,8 @@ begin
     --the dynamic variable.
         L1: for j in 0 to 64 loop
             exit L1 when j > N;
-            if (entrada(j) = '1') then
-                c := c + 1;
-              --temporal <= temporal + x"00000001";
-            end if;
-            --j := j + 1;
-        end loop;
-        --if temporal >= ((N+1)/2) then
-        if c >= ((N+1)/2) then
-          salida <= '1';
-        else
-          salida <= '0';
-        end if;
+             temporal <= std_logic_vector(x"00000000" + unsigned( entrada(j downto j) ) + unsigned( temporal ));
+        end loop;      
     end process;
-
+    salida <= '1' when( temporal >= (N+1)/2) else '0';
 end Behavioral;

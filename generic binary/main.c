@@ -1,9 +1,15 @@
+/******************************************************************************
+
+******************************************************************************/
+
 /*
- * main.c
+ * main.c.c: simple test application
  *
- *  Created on: 18 may. 2018
- *      Author: Dariel
-  * ------------------------------------------------
+ * This application configures UART 16550 to baud rate 9600.
+ * PS7 UART (Zynq) is not initialized by this application, since
+ * bootrom/bsp configures it to baud rate 115200
+ *
+ * ------------------------------------------------
  * | UART TYPE   BAUD RATE                        |
  * ------------------------------------------------
  *   uartns550   9600
@@ -12,8 +18,11 @@
  */
 
 
- #include <stdio.h>
+#include "xil_printf.h"
+
+#include <stdio.h>
 #include "xil_types.h"
+
 #include "xparameters.h"
 #include "xil_io.h"
 #include "platform.h"
@@ -22,6 +31,7 @@
 
 #define DIR_MAX 508
 #define DOSM 20
+
 
 
 int main()
@@ -40,10 +50,11 @@ int main()
     matriz[3] = 0x5a; matriz[2]=0x0b; matriz[1]= 0xc9; matriz[0]=0x64;
 
 
-    u32 vector1 = 0x00;
+    u32 vector1 = 0xff;
 	u32 vector0 = 0x69;
     u32 salida1 = 0x0;
 	u32 salida0 = 0x0;
+	u32 c2, c1 = 0x0;
 
 	print("....\n\r");
 
@@ -60,15 +71,22 @@ int main()
     	dir += 4;
     }
 
+    c1 = UNIDAD_GENERAL_mReadReg(baseaddr, UNIDAD_GENERAL_S00_AXI_SLV_REG132_OFFSET);
+
     UNIDAD_GENERAL_mWriteReg(baseaddr, UNIDAD_GENERAL_S00_AXI_SLV_REG129_OFFSET , vector1);
     UNIDAD_GENERAL_mWriteReg(baseaddr, UNIDAD_GENERAL_S00_AXI_SLV_REG128_OFFSET, vector0);
 
 
     salida1 = UNIDAD_GENERAL_mReadReg(baseaddr, UNIDAD_GENERAL_S00_AXI_SLV_REG131_OFFSET);
     salida0 = UNIDAD_GENERAL_mReadReg(baseaddr, UNIDAD_GENERAL_S00_AXI_SLV_REG130_OFFSET);
+
+    c2  = UNIDAD_GENERAL_mReadReg(baseaddr, UNIDAD_GENERAL_S00_AXI_SLV_REG132_OFFSET);
+
     printf("resultado: %08x %08x\n\r", salida1, salida0);
+    printf("tiempo : %d - %d = %d ciclos a 100MHz\n\r", c2, c1, c2-c1);
 
 
 	cleanup_platform();
 	return 0;
 }
+

@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use IEEE.STD_LOGIC_ARITH.ALL;
+--use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity unidad_general1_v1_0_S00_AXI is
@@ -144,7 +144,7 @@ architecture arch_imp of unidad_general1_v1_0_S00_AXI is
     -------------------------------------
     -----//////// Unidad General
     -------------------------------------
-    component unidad_general is
+    component unidad_general
         generic (N : natural := 63;
                  M : natural := 9;
                  NM : natural := 639); --// (n+1 x m+1)-1 bits
@@ -716,7 +716,7 @@ begin
     
     cuenta <= slv_reg24 + x"00000001";
     unidad_g: unidad_general port map (reg2 => matriz, reg0 => vector, reg1 => salidatemp);
-    salida <= x"0000000000000000" + salidatemp;
+    salida <= std_logic_vector(x"0000000000000000" + unsigned(salidatemp)); 
     
 	-- User logic ends
 

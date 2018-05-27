@@ -1,8 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
---use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity unidad_general_v1_0_S00_AXI is
@@ -249,11 +247,11 @@ architecture arch_imp of unidad_general_v1_0_S00_AXI is
 	signal reg_data_out	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	signal byte_index	: integer;
 	signal aw_en	: std_logic;
-	
+
 	-------------------------------------
 	-----//////// Unidad General
 	-------------------------------------
-	component unidad_general is
+	component unidad_general
         generic (N : natural := 63;
                  M : natural := 9;
                  NM : natural := 639); --// (n+1 x m+1)-1 bits
@@ -1706,10 +1704,10 @@ begin
 	            slv_reg131 <= slv_reg131;
 	            slv_reg132 <= slv_reg132;
 	        end case;
-	      else
-	          slv_reg132 <= cuenta;
-	          slv_reg131 <= salida(63 downto 32);--salida up
-	          slv_reg130 <= salida(31 downto 0);--salida down
+	        else
+	           slv_reg132 <= cuenta;
+               slv_reg131 <= salida(63 downto 32);--salida up
+               slv_reg130 <= salida(31 downto 0);--salida down
 	      end if;
 	    end if;
 	  end if;                   
@@ -2094,13 +2092,13 @@ begin
 
 	-- Add user logic here
 	----------
-	--////
-	----------
-	cuenta <= slv_reg132 + x"00000001";
-	vector <= slv_reg129 & slv_reg128;
-	matriz <= slv_reg127 &  slv_reg126 & slv_reg125 & slv_reg124 & slv_reg123 & slv_reg122 & slv_reg121 & slv_reg120 & 
-	slv_reg119 & slv_reg118 & slv_reg117 & slv_reg116 & slv_reg115 & slv_reg114 & slv_reg113 & slv_reg112 & slv_reg111 & slv_reg110 &
-	slv_reg109 & slv_reg108 & slv_reg107 & slv_reg106 & slv_reg105 & slv_reg104 & slv_reg103 & slv_reg102 & slv_reg101 & slv_reg100 &	
+    --////
+    ----------
+    cuenta <= slv_reg132 + x"00000001";
+    vector <= slv_reg129 & slv_reg128;
+    matriz <= slv_reg127 &  slv_reg126 & slv_reg125 & slv_reg124 & slv_reg123 & slv_reg122 & slv_reg121 & slv_reg120 & 
+    slv_reg119 & slv_reg118 & slv_reg117 & slv_reg116 & slv_reg115 & slv_reg114 & slv_reg113 & slv_reg112 & slv_reg111 & slv_reg110 &
+    slv_reg109 & slv_reg108 & slv_reg107 & slv_reg106 & slv_reg105 & slv_reg104 & slv_reg103 & slv_reg102 & slv_reg101 & slv_reg100 &    
     slv_reg99 & slv_reg98 & slv_reg97 & slv_reg96 & slv_reg95 & slv_reg94 & slv_reg93 & slv_reg92 & slv_reg91 & slv_reg90 &
     slv_reg89 & slv_reg88 & slv_reg87 & slv_reg86 & slv_reg85 & slv_reg84 & slv_reg83 & slv_reg82 & slv_reg81 & slv_reg80 &
     slv_reg79 & slv_reg78 & slv_reg77 & slv_reg76 & slv_reg75 & slv_reg74 & slv_reg73 & slv_reg72 & slv_reg71 & slv_reg70 &
@@ -2112,11 +2110,11 @@ begin
     slv_reg19 & slv_reg18 & slv_reg17 & slv_reg16 & slv_reg15 & slv_reg14 & slv_reg13 & slv_reg12 & slv_reg11 & slv_reg10 &
     slv_reg9 & slv_reg8 & slv_reg7 & slv_reg6 & slv_reg5 & slv_reg4 & slv_reg3 & slv_reg2 & slv_reg1 & slv_reg0;
     
-	
+    
     unidad_g: unidad_general port map (reg2 => matriz(639 downto 0), reg0 => vector, reg1 => salidatemp);
     salida <= std_logic_vector(x"0000000000000000" + unsigned(salidatemp)); 
-	-----
-	--//
+    -----
+    --//
     -----
 	-- User logic ends
 

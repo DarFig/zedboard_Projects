@@ -34,7 +34,7 @@
 - [x] reducir espacio reservado actual a 64x10(espacio util de la primera prueba)
 - [x] primera prueba del espacio reducido
 - [x] replantear partiendo de diseño bottom-up
-- [ ] simplificar diseño antiguo, reprobar
+- [x] simplificar diseño antiguo, reprobar --> ok 640 bits 64x10
 
 ### Diseño bottom-up
 
@@ -45,6 +45,12 @@
 - [x] axi 8x8
 - [x] prueba externa 8x8 --> ok :)
 
+### Transferencia por Ráfaga
+
+- [ ] adaptar interfaz
+- [ ] probar interfaz
+- [ ] integrar con acelerador 
+- [ ] probar integrado
 
 ## General
 
@@ -52,6 +58,8 @@
 
 - [x] Transferencia por registros
 - [ ] Transferencia por DMA(ráfaga)
+- [ ] Comparar tiempos
+
 
 ### Pruebas
 

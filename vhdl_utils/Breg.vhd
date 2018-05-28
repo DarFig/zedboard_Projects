@@ -36,7 +36,7 @@ entity Breg is
 Port ( 
     clk : in  STD_LOGIC;
     reset : in  STD_LOGIC;
-    dir : in STD_LOGIC_VECTOR (4 downto 0);
+    dir : in STD_LOGIC_VECTOR (3 downto 0);
     Din : in  STD_LOGIC_VECTOR (31 downto 0);
     load : in  STD_LOGIC;
     Dout : out  STD_LOGIC_VECTOR (31 downto 0)
@@ -45,7 +45,7 @@ end Breg;
 
 architecture Behavioral of Breg is
 
-type reg_array is array (0 to 31) of std_logic_vector(31 downto 0);
+type reg_array is array (0 to 15) of std_logic_vector(31 downto 0);
 signal reg_file : reg_array;
 
 begin
@@ -53,7 +53,7 @@ begin
     begin
         if (clk'event and clk = '1') then
            if (reset = '1') then
-                for i in 0 to 31 loop
+                for i in 0 to 15 loop
                     reg_file(i) <= "00000000000000000000000000000000";
                 end loop;
            else

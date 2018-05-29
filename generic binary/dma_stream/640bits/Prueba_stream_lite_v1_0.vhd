@@ -166,12 +166,13 @@ architecture arch_imp of Prueba_stream_lite_v1_0 is
 
 		Din : in  STD_LOGIC_VECTOR (31 downto 0);
 		number_of_received_words: in  STD_LOGIC_VECTOR (4 downto 0);
-		word_count: in  STD_LOGIC_VECTOR (4 downto 0);
+		word_count: in  STD_LOGIC_VECTOR (3 downto 0);
 		-- 
 		load : in  STD_LOGIC;
 		-- 
-		Dout : out  STD_LOGIC_VECTOR (31 downto 0)
-		
+		Dout : out  STD_LOGIC_VECTOR (31 downto 0);
+		salida0 : out STD_LOGIC_vector(31 downto 0);--salida
+        salida1 : out STD_LOGIC_vector(31 downto 0)--salida
 		);
     end component; 
     
@@ -184,9 +185,9 @@ architecture arch_imp of Prueba_stream_lite_v1_0 is
      signal new_data: std_logic;
     -- contador de palabras recibidas
     signal rst_received, inc_received: STD_LOGIC;
-    signal number_of_received_words: std_logic_vector(3 downto 0);
+    signal number_of_received_words: std_logic_vector(4 downto 0);
     -- registros de datos
-    signal Reg_out, dataX4: STD_LOGIC_VECTOR(32-1 downto 0);
+    signal Reg_out, salida0, salida1, dataX4: STD_LOGIC_VECTOR(32-1 downto 0);
     signal load_reg: STD_LOGIC;
     signal send_data: std_logic;
     signal word_count: std_logic_vector(3 downto 0);
@@ -223,8 +224,8 @@ begin
 			-- Added ports
 			-- Es un contador de 32 bits que no para nunca
 			-- nos permite medir tiempos
-			salida0                => Reg3_out,
-            salida1                => Reg3_out,
+			salida0                => salida0,
+            salida1                => salida1,
 			number_cycles        => number_cycles
 	     );
     
@@ -282,14 +283,11 @@ begin
     received_words: counter generic map(5)
           port map(clk => s00_axi_aclk, rst => rst, rst2 => rst_received, inc => inc_received, count => number_of_received_words);
     inc_received <= new_data;
-    -- en este ejemplo recibimos paquetes de 4 palabras y las guardamos en 3 registros
-
     
+    u_e : gestorRegistros port map ( clk =>  s00_axi_aclk, reset => rst, Din => data_stream_in, number_of_received_words => number_of_received_words,
+     word_count => word_count, load => new_data, Dout => Reg_out, salida0 => salida0, salida1 => salida1);
 
-    u_e : gestorRegistros port map ( clk =>  s00_axi_aclk, reset => rst, Din => data_stream_in, 
-	number_of_received_words => number_of_received_words, word_count => word_count, load => new_data, Dout => Reg_out);
-
-      --cuando tenemos 3 palabras reseteamos el contador y las mandamos de vuelta
+      --cuando tenemos 22 palabras reseteamos el contador y las mandamos de vuelta
     rst_received <= '1' when number_of_received_words ="10110" else '0';
     
     -- sen_data indica que queremos enviar los datos

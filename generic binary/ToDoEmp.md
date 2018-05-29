@@ -6,7 +6,7 @@
 ### Acumulador
 
 - [x] Sumadores Básicos 
-- [ ] Árbol de Sumas
+- [x] bitcount
 
 ### Unidad Básica
 
@@ -47,17 +47,19 @@
 
 ### Transferencia por Ráfaga
 
-- [ ] adaptar interfaz
-- [ ] probar interfaz
-- [ ] integrar con acelerador 
-- [ ] probar integrado
+- [x] adaptar interfaz
+- [x] probar interfaz
+- [x] integrar con acelerador 
+- [x] probar integrado
 
 ## General
+
+- [ ] Doc
 
 ### Transferencia
 
 - [x] Transferencia por registros
-- [ ] Transferencia por DMA(ráfaga)
+- [x] Transferencia por DMA(ráfaga)
 - [ ] Comparar tiempos
 
 

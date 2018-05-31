@@ -24,6 +24,36 @@
 #define DIR_MAX 508
 #define DOSM 20
 
+void pruebaC(u32 matriz[], u32 vector[], u32 salida[])
+{
+	u32 temp0, temp1;
+	int cuenta = 0;
+	int m = 0;
+	for(int i = 0; i <DOSM; i+=2)
+	{
+		temp0 = ~(matriz[i] ^ vector[0]);
+		temp1 = ~(matriz[i+1] ^ vector[1]);
+		//printf("%08x %08x\n", temp1, temp0);
+		cuenta = 0;
+		while (temp0 != 0) {
+		    temp0 &= (temp0 - 1);
+		    cuenta++;
+		}
+		while (temp1 != 0) {
+			temp1 &= (temp1 - 1);
+			cuenta++;
+		}
+		if(cuenta >= 32) salida[m] = 1;
+		else salida[m] = 0;
+		m++;
+	}
+}
+
+u32 comprimirS(u32 sal[])
+{
+	u32 salida;
+	salida = sal[0] | sal[1] << 1 | sal[2] << 2 | sal[3] << 3 | sal[4] <<  4 | sal[5] << 5 | sal[6] << 6 | sal[7] <<  7 | sal[8] << 8 | sal[9] << 9;
+}
 
 int main()
 {
@@ -31,7 +61,10 @@ int main()
 
 	u32 baseaddr = 0x43c00000;
 	const u32 zero = 0x00000000;
+	u32 vec[2] = { 0xffffffff, 0x0};
+	u32 sal[10] = {0,0,0,0,0,0,0,0,0,0};
 
+	//0xffffffff
     u32 matriz[DOSM];
 	for(int i = 0; i < DOSM; i++)
 	{
@@ -42,15 +75,19 @@ int main()
 
     u32 cuenta1 = 0x00;
     u32 cuenta2 = 0x00;
-    u32 vector1 = 0x00;
-	u32 vector0 = 0x69;
+    u32 tc2, tc1 = 0x0;
+    u32 vector1 = vec[1];
+	u32 vector0 = vec[0];
     u32 salida1 = 0x0;
 	u32 salida0 = 0x0;
 
 	print("....\n\r");
 
 
+
+
 	cuenta1 = UNIDAD_GENERAL1_mReadReg(baseaddr, UNIDAD_GENERAL1_S00_AXI_SLV_REG24_OFFSET);
+
 
     UNIDAD_GENERAL1_mWriteReg(baseaddr, UNIDAD_GENERAL1_S00_AXI_SLV_REG0_OFFSET, matriz[0]);
     UNIDAD_GENERAL1_mWriteReg(baseaddr, UNIDAD_GENERAL1_S00_AXI_SLV_REG1_OFFSET, matriz[1]);
@@ -85,6 +122,12 @@ int main()
     printf("resultado: %08x %08x\n\r", salida1, salida0);
     printf("tiempo : %d - %d = %d ciclos a 100MHz\n\r", cuenta2, cuenta1, cuenta2-cuenta1);
 
+    tc1 = UNIDAD_GENERAL1_mReadReg(baseaddr, UNIDAD_GENERAL1_S00_AXI_SLV_REG24_OFFSET);
+	pruebaC(matriz, vec, sal);
+	tc2 = UNIDAD_GENERAL1_mReadReg(baseaddr, UNIDAD_GENERAL1_S00_AXI_SLV_REG24_OFFSET);
+	printf("\n----------------\nSalida codigo c:\n");
+	printf("%08x\n", comprimirS(sal));
+	printf("tiempo : %d - %d = %d ciclos a 100MHz\n\r", tc2, tc1, tc2-tc1);
 
 	cleanup_platform();
 	return 0;

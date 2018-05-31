@@ -43,10 +43,11 @@ architecture Behavioral of counter8 is
 
 signal s5,s6 : std_logic_vector(1 downto 0);
 signal s7: std_logic_vector(3 downto 0);
-signal s1, s2, s3, s4, c1, c2, c3,c4, c5 , c6 : std_logic;
-
+signal s1, s2, s3, s4, c1, c2, c3,c4, c5 , c6, zero : std_logic;
+signal a6, a5  : std_logic_vector(3 downto 0);
 begin
 
+zero <= '0';
 s1 <= entrada(1) xor entrada(0);
 s2 <= entrada(3) xor entrada(2);
 s3 <= entrada(5) xor entrada(4);
@@ -62,8 +63,9 @@ s6 <= ((c4 xor c3) xor (s4 and s3)) & (s4 xor s3);
 c5 <= c2 and c1; 
 c6 <= c4 and c3;
 
-s7 <=(c6 and c5) & ( (c5 xor c6) or ( s6(1) and s5(1) and s6(0) and s5(1)) or ((s6(0) and s5(1) and s5(0) ) or (s6(1) and ((s5(1) and s5(0)) or (s6(1) and s5(1))or (s6(1) and s5(0)) )) )  ) & ( ( s6(1) xor s5(1) ) xor ( s6(0) and s5(0) ) ) & ( s6(0) xor s5(0) );
-
+a6 <= zero & c6 & s6;
+a5 <= zero & c5 & s5;
+s7 <= a6 + a5;
 --
 salida <= s7;
 end Behavioral;

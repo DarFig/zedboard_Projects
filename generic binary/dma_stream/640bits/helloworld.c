@@ -50,7 +50,7 @@ u32 PRUEBA_STREAM_LITE_Reg_SelfTest2(int baseaddr_p)
 	for (read_loop_index = 0 ; read_loop_index < 4; read_loop_index++){
 		data_read[read_loop_index] = PRUEBA_STREAM_LITE_mReadReg ((u32) baseaddr_p, read_loop_index*4);
 	  }
-	printf("* AXI LITE\n\r");
+	printf("\n AXI LITE\n\r");
 	printf ("Salida %08x %08x\n",data_read[1], data_read[0]);
 	printf ("Número de cilos %x\n", data_read[2]);
 	printf ("Cuenta %x\n", data_read[3]);
@@ -113,7 +113,7 @@ int main()
 	};
     //0xffffffff;
     //0x00000000;
-    u32 c1, c2, c3 = 0x0;
+    u32 c1, c2, c3, c4 = 0x0;
 
     /*for(int i = 0; i < ROWSIZE; i++)
     {
@@ -153,7 +153,7 @@ int main()
 		printf("Error: DMA transfer from ACC to CPU failed\n");
 		return XST_FAILURE;
 	}
-
+	c3 = PRUEBA_STREAM_LITE_mReadReg (XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR, PRUEBA_STREAM_LITE_S00_AXI_SLV_REG3_OFFSET);
 
 
     print("Datos enviados\n\r");
@@ -170,10 +170,14 @@ int main()
     printf("-------\n\r");
 
     //Recoger los datos por AXI_LITE
-    c3 = PRUEBA_STREAM_LITE_Reg_SelfTest2(XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR);
-
     printf("tiempo : %d - %d = %d ciclos a 100MHz\n\r", c2, c1, c2-c1);
-    printf("tiempo tot : %d - %d + %d = %d ciclos a 100MHz\n\r", c2, c1, c3, c2 - c1 + c3);
+    printf("tiempo con vuelta por DMA : %d - %d = %d ciclos a 100MHz\n\r", c3, c1, c3-c1);
+
+
+	//Recoger los datos por AXI_LITE
+
+	c4 = PRUEBA_STREAM_LITE_Reg_SelfTest2(XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR);
+	printf("\ntiempo con vuelta por AXI LITE : %d - %d + %d = %d ciclos a 100MHz\n\r", c2, c1, c4, c2 - c1 +  c4);
     cleanup_platform();
     return 0;
 }

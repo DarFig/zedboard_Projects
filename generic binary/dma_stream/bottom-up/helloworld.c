@@ -31,30 +31,32 @@
 // AXI DMA Instance
 XAxiDma AxiDma;
 
-void PRUEBA_STREAM_LITE_Reg_SelfTest2(int baseaddr_p)
+u32 PRUEBA_STREAM_LITE_Reg_SelfTest2(int baseaddr_p)
 {
 	u32 baseaddr;
-	u32 data_read;
+	u32 data_read[5];
 	int write_loop_index;
 	int read_loop_index;
 	int Index;
 
-	printf("******************************\n\r");
-	printf("* User Peripheral Self Test\n\r");
-	printf("******************************\n\n\r");
+	//printf("******************************\n\r");
+	//printf("* User Peripheral Self Test\n\r");
+	//printf("******************************\n\n\r");
 
 	/*
 	 * Write to user logic slave module register(s) and read back
 	 */
-	printf("User logic slave module test...\n\r");
-
+	//printf("User logic slave module test...\n\r");
+	data_read[4] = PRUEBA_STREAM_LITE_mReadReg ((u32) baseaddr_p, 3*4);
 	for (read_loop_index = 0 ; read_loop_index < 4; read_loop_index++){
-		data_read=PRUEBA_STREAM_LITE_mReadReg ((u32) baseaddr_p, read_loop_index*4);
-	    printf ("Dato leído %x\n", data_read);
-
-	  }
-
-	printf("   - slave register write/read passed\n\n\r");
+		data_read[read_loop_index]=PRUEBA_STREAM_LITE_mReadReg ((u32) baseaddr_p, read_loop_index*4);
+	}
+	printf("\n AXI LITE\n\r");
+	printf ("Salida %08x %08x\n",0x0, data_read[0]);
+	printf ("Número de cilos %x\n", data_read[2]);
+	printf ("Cuenta %x\n", data_read[3]);
+	return data_read[3] - data_read[4];
+	//printf("   - slave register write/read passed\n\n\r");
 	}
 // función para inicializar el DMA
 int init_DMA(){
@@ -87,7 +89,7 @@ int main()
     init_platform();
     init_DMA();
     u32 row[4]={0x5a0bc964,0xd6512c96,0x69,8};
-    u32 c1, c2 = 0x0;
+    u32 c1, c2, c3, c4, c5 = 0x0;
 
 	if (init_DMA() != XST_SUCCESS){
 		printf("Error: DMA init failed\n");
@@ -114,16 +116,24 @@ int main()
 		printf("Error: DMA transfer from ACC to CPU failed\n");
 		return XST_FAILURE;
 	}
-
+	c3 = PRUEBA_STREAM_LITE_mReadReg (XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR, PRUEBA_STREAM_LITE_S00_AXI_SLV_REG3_OFFSET);
 
 
     print("Datos enviados\n\r");
-    printf("%d,%d,%d,%d\n", row[0], row[1], row[2], row[3]);
-    print("Datos recibidos\n\r");
-    printf("%d,%d,%d,%d\n", map_from_HW[0], map_from_HW[1], map_from_HW[2], map_from_HW[3]);
-    PRUEBA_STREAM_LITE_Reg_SelfTest2(XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR);
+    printf("%x08,%x08,%x08,%x08\n", row[0], row[1], row[2], row[3]);
+    //print("Datos recibidos\n\r");
+    //printf("%d,%d,%d,%d\n", map_from_HW[0], map_from_HW[1], map_from_HW[2], map_from_HW[3]);
+    //PRUEBA_STREAM_LITE_Reg_SelfTest2(XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR);
 
     printf("tiempo : %d - %d = %d ciclos a 100MHz\n\r", c2, c1, c2-c1);
+    printf("tiempo con vuelta por DMA : %d - %d = %d ciclos a 100MHz\n\r", c3, c1, c3-c1);
+
+
+    //Recoger los datos por AXI_LITE
+    //c4 = PRUEBA_STREAM_LITE_mReadReg (XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR, PRUEBA_STREAM_LITE_S00_AXI_SLV_REG3_OFFSET);
+    c4 = PRUEBA_STREAM_LITE_Reg_SelfTest2(XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR);
+    printf("\ntiempo con vuelta por AXI LITE : %d - %d + %d  = %d ciclos a 100MHz\n\r", c2, c1, c4, c2 - c1 +  c4);
+
     cleanup_platform();
     return 0;
 }

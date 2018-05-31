@@ -53,6 +53,7 @@ u32 comprimirS(u32 sal[])
 {
 	u32 salida;
 	salida = sal[0] | sal[1] << 1 | sal[2] << 2 | sal[3] << 3 | sal[4] <<  4 | sal[5] << 5 | sal[6] << 6 | sal[7] <<  7 | sal[8] << 8 | sal[9] << 9;
+	return salida;
 }
 
 int main()

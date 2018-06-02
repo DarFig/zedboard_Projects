@@ -113,7 +113,7 @@ int main()
 	};
     //0xffffffff;
     //0x00000000;
-    u32 c1, c2, c3, c4 = 0x0;
+    u32 c1, c2, c3, c4, c5 = 0x0;
 
     /*for(int i = 0; i < ROWSIZE; i++)
     {
@@ -176,8 +176,14 @@ int main()
 
 	//Recoger los datos por AXI_LITE
 
-	c4 = PRUEBA_STREAM_LITE_Reg_SelfTest2(XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR);
-	printf("\ntiempo con vuelta por AXI LITE : %d - %d + %d = %d ciclos a 100MHz\n\r", c2, c1, c4, c2 - c1 +  c4);
+	//c4 = PRUEBA_STREAM_LITE_Reg_SelfTest2(XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR);
+	//printf("\ntiempo con vuelta por AXI LITE : %d - %d + %d = %d ciclos a 100MHz\n\r", c2, c1, c4, c2 - c1 +  c4);
+    c4 = PRUEBA_STREAM_LITE_mReadReg (XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR, PRUEBA_STREAM_LITE_S00_AXI_SLV_REG3_OFFSET);
+    u32 salAXI = PRUEBA_STREAM_LITE_mReadReg (XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR, PRUEBA_STREAM_LITE_S00_AXI_SLV_REG0_OFFSET);
+    c5 = PRUEBA_STREAM_LITE_mReadReg (XPAR_PRUEBA_STREAM_LITE_0_S00_AXI_BASEADDR, PRUEBA_STREAM_LITE_S00_AXI_SLV_REG3_OFFSET);
+    printf("\ntiempo con vuelta por AXI LITE : %d - %d + (%d - %d ) = %d ciclos a 100MHz\n\r", c2, c1, c5, c4, c2 - c1 +  (c5 - c4));
+    printf ("Salida: %08x\n", salAXI);
+
     cleanup_platform();
     return 0;
 }

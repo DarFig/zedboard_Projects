@@ -4,7 +4,7 @@
 ******************************************************************************/
 
 /*
- * helloworld.c: simple test application
+ * main.c: simple test application
  *
  * This application configures UART 16550 to baud rate 9600.
  * PS7 UART (Zynq) is not initialized by this application, since
@@ -33,29 +33,37 @@
 #define N 8
 
 
-const u8 matriz[M] = {0x64, 0xc9, 0x0b, 0x5a, 0x96, 0x2c, 0x51, 0xd6};
-const u8 matriz1[M] = {0x96, 0x2c, 0x51, 0xd6, 0x64, 0xc9, 0x0b, 0x5a};
-const u8 v0 = 0x69;
-const u8 v1 = 0x96;
-const u8 v2 = 0x51;
-const u8 v3 = 0xa9;
+
 u8 comprimirS(u8 sal[])
 {
 	return (sal[0] | sal[1] << 1 | sal[2] << 2 | sal[3] << 3 | sal[4] <<  4 | sal[5] << 5 | sal[6] << 6 | sal[7] <<  7 );
 }
 u16 comprimirDos(u8 sal0[], u8 sal1[])
 {
-	return (sal0[0] | sal0[1] << 1 | sal0[2] << 2 | sal0[3] << 3 | sal0[4] <<  4 | sal0[5] << 5 | sal0[6] << 6 | sal0[7] <<  7 | sal1[0] << 8 | sal1[1] << 9 | sal1[2] << 10 | sal1[3] << 11 | sal1[4] <<  12 | sal1[5] << 13 | sal1[6] << 14 | sal1[7] <<  15);
+	return  (sal0[0] | sal0[1] << 1 | sal0[2] << 2 | sal0[3] << 3 | sal0[4] <<  4 | sal0[5] << 5 | sal0[6] << 6 | sal0[7] <<  7 | sal1[0] << 8 | sal1[1] << 9 | sal1[2] << 10 | sal1[3] << 11 | sal1[4] <<  12 | sal1[5] << 13 | sal1[6] << 14 | sal1[7] <<  15);
 
 }
+//matrizz[1] = 0xd6512c96;
+//	matrizz[0] = 0x5a0bc964;
+//	u32 vector = 0xa9519669;
+const u8 matriz[M] = {0x64, 0xc9, 0x0b, 0x5a, 0x96, 0x2c, 0x51, 0xd6};
+const u8 matriz1[M] = {0x96, 0x2c, 0x51, 0xd6, 0x64, 0xc9, 0x0b, 0x5a};
+const u8 v0 = 0x69;
+const u8 v1 = 0x96;
+const u8 v2 = 0x51;
+const u8 v3 = 0xa9;
+
+//dejar esto como global arregla la optimizacion de -o3 (:^|)
+u8 s0[M], s1[M], s2[M], s3[M], s4[M], s5[M], s6[M], s7[M], s10[M], s11[M];
 
 void pruebaC(u8 salida0[], u8 salida1[])
 {
-	u8 temp0;
-	u8 s0[M], s1[M], s2[M], s3[M], s4[M], s5[M], s6[M], s7[M], s10[M], s11[M];
-	u8 vxnor = ~( v0 ^ v1 ^ v2 ^ v3);
+
+	u8 temp0 = 0;
 	int cuenta = 0;
 	int m = 0;
+	u8 vxnor = ~( v0 ^ v1 ^ v2 ^ v3);
+
 	for(int i = 0; i < M; i++)//0
 	{
 		temp0 = ~(matriz[i] ^ v0);
@@ -224,7 +232,7 @@ int main()
 
 	//u8 matrizc[M] = {0x64, 0xc9, 0x0b, 0x5a, 0x96, 0x2c, 0x51, 0xd6};
 	//u8 vecc = 0x69;
-	u8 salc[M] = {0x0, 0x0,0x0,0x0,0x0,0x0,0x0,0x0};
+	//u8 salc[M] = {0x0, 0x0,0x0,0x0,0x0,0x0,0x0,0x0};
 	u32 tc1, tc2  = 0x0;
 	///-- salida == 0xff para 8x8
 	/*
@@ -239,7 +247,7 @@ int main()
 	u32 vector = 0xa9519669;
 
 
-	u8  sal01[M], sal02[M];
+	u8  sal01[M], sal02[M] = {0x0, 0x0,0x0,0x0,0x0,0x0,0x0,0x0};
 	u32 salida = 0x0;
 	u32 c2, c1 = 0x0;
 

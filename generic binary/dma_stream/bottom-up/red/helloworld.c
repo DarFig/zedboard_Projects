@@ -52,11 +52,11 @@ u16 comprimirDos(u8 sal0[], u8 sal1[])
 	return (sal0[0] | sal0[1] << 1 | sal0[2] << 2 | sal0[3] << 3 | sal0[4] <<  4 | sal0[5] << 5 | sal0[6] << 6 | sal0[7] <<  7 | sal1[0] << 8 | sal1[1] << 9 | sal1[2] << 10 | sal1[3] << 11 | sal1[4] <<  12 | sal1[5] << 13 | sal1[6] << 14 | sal1[7] <<  15);
 
 }
-
+u8 s0[M], s1[M], s2[M], s3[M], s4[M], s5[M], s6[M], s7[M], s10[M], s11[M];
 void pruebaC(u8 salida0[], u8 salida1[])
 {
 	u8 temp0;
-	u8 s0[M], s1[M], s2[M], s3[M], s4[M], s5[M], s6[M], s7[M], s10[M], s11[M];
+	
 	u8 vxnor = ~( v0 ^ v1 ^ v2 ^ v3);
 	int cuenta = 0;
 	int m = 0;
